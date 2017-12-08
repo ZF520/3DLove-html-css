@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>3D爱心</title>
+	<style type="text/css">
+		body{
+			background: #000;
+		}
+		.heart3d{
+			position: relative;
+			width: 100px;
+			height: 160px;
+			margin: 100px auto;
+			transform-style: preserve-3d;
+			/*css3自定义动画：动画的名称 时间 匀速运动 无限重复*/
+			animation: rot 10s linear infinite;
+			/*border: 2px solid red;*/
+			/*圆角 顺时针方向：左上 右上 右下 左下 */
+			/*
+				斜杠前面是水平边 /斜杠后面是竖直边 
+			*/
+			/*border-radius: 50% 40% 30% 10% / 10% 30% 40% 50%;*/
+		}
+		/*关键帧*/
+		@keyframes rot{
+			from{
+				transform: rotateY(0deg)rotateX(0deg);
+			}
+			to{
+				transform: rotateY(360deg)rotateX(360deg);
+			}
+		}
+		.heart3d div.heart{
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			width: 100px;
+			height: 158px;
+			border: 2px solid red;
+			border-left: 0;/*0 还是 none ？ 低版本IE不兼容none*/
+			border-bottom: 0;
+			border-radius: 50% 50% 0/40% 50% 0;
+			transform: rotate(45deg);
+		}
+		.heart3d div.cube img{
+			width: 50px;
+			height: 50px;
+		}
+		*{
+			margin:0;
+			padding: 0;
+		}
+		body{
+			perspective: 1000px;/*景深:视角*/
+		}
+		.cube{
+			position: relative;
+			width: 50px;
+			height: 50px;
+			transform-origin: 50% 50% -25px;
+			transform-style: preserve-3d;/*设置为3D的环境*/
+			transform: translateX(25px) translateY(50px) translateZ(25px);
+		}
+		.cube div{
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 50px;
+			height: 50px;
+		}
+		/*css3结构选择器*/
+		.cube div:nth-child(1){
+			top: -50px;
+			/*默认旋转中心： x方向宽度的一半 Y方向高度的一半 z方向是0
+			transform-origin: 50% 50% 0;*/
+			transform-origin: bottom;
+			/*css3变换：围绕x轴旋转90度*/
+			transform: rotateX(90deg);
+		}
+		.cube div:nth-child(2){
+			top:50px;
+			transform-origin: top;
+			transform: rotateX(-90deg);
+		}
+		.cube div:nth-child(3){
+			left:-50px;
+			transform-origin: right;
+			transform: rotateY(-90deg);
+		}
+		.cube div:nth-child(4){
+			left:50px;
+			transform-origin: left;
+			transform: rotateY(90deg);
+		}
+		.cube div:nth-child(5){
+		}
+		.cube div:nth-child(6){
+			/*css3变换：围绕Z方向位移*/
+			transform: translateZ(-50px);
+		}
+	</style>
+</head>
+
+<body>
+	<div class="heart3d">
+		<div class="cube">
+			<div><img src="images/1.jpg"></div>
+			<div><img src="images/2.jpg"></div>
+			<div><img src="images/3.jpg"></div>
+			<div><img src="images/4.jpg"></div>
+			<div><img src="images/5.jpg"></div>
+			<div><img src="images/6.jpg"></div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var heart3d = document.getElementsByClassName("heart3d")[0];
+		for (var i=0; i<36 ; i++) {
+			//创建一个div标签
+			var oDiv = document.createElement("div");
+			oDiv.className = "heart";
+			oDiv.style.transform = "rotateY("+i*10+"deg) rotateZ(45deg) translateX(30px)";
+			//把创建好的div添加到heart3d里面
+			heart3d.appendChild(oDiv);
+		}
+	</script>
+
+</body>
+</html>
